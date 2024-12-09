@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>טופס פקיעה</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 10px;
+
+
+      background-image: url('');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed; /* Keeps the image fixed while scrolling */
+    }
+    h1 {
+      text-align: center;
+    }
+    .form-section {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .issue-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .issue-row input {
+      flex: 1;
+      margin-right: 10px;
+    }
+    .issue-row:last-child input {
+      margin-right: 0;
+    }
+    .issues-list {
+      margin-bottom: 20px;
+    }
+    @media (max-width: 600px) {
+      input, textarea, button {
+        font-size: 16px;
+      }
+      .issue-row {
+        flex-direction: column;
+      }
+      .issue-row input {
+        margin-bottom: 10px;
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>כרטיס תיקון / בחינה ודווח תקלות צמ״ה  </h1>
+
+  <form id="dataForm">
+    <!-- Command Information Section -->
+    <div class="form-section">
+      <label for="commandNumber">מספר צ׳</label>
+      <input type="text" id="commandNumber" name="commandNumber" placeholder="מספר צ׳" required>
+
+      <label for="toolType">סוג כלי</label>
+      <input type="text" id="a1" name="toolType" placeholder="סוג כלי" required>
+
+       <label for="toolType">מספר יצרן</label>
+      <input type="text" id="a2" name="toolType" placeholder="מספר יצרן" required>
+
+      <label for="toolType">מעמד</label>
+      <input type="text" id="a3" name="toolType" placeholder="מעמד" required>
+      
+      <label for="toolType">קוד יחידה</label>
+      <input type="text" id="a4" name="toolType" placeholder="קוד יחידה" required>
+      
+      <label for="toolType">תקלה משביתה</label>
+      <input type="text" id="a5" name="toolType" placeholder="תקלה משביתה" required>
+
+      <label for="toolType">מקום ביצוע</label>
+      <input type="text" id="a6" name="toolType" placeholder="מקום ביצוע" required>
+
+      
+
+
+
+      <h2 style="text-align: center;">כניסה</h2>
+
+      <label for="dateReceived">תאריך קבלה</label>
+      <input type="date" id="dateReceived" name="dateReceived" required>
+
+      <label for="toolType">שע״מ</label>
+      <input type="text" id="e1" name="toolType" placeholder="שעות מנועה" required>
+
+      <label for="toolType">שם בוחן</label>
+      <input type="text" id="e2" name="toolType" placeholder="שם בוחן" required>
+
+      
+
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="form-section">
+      
+
+      <h2 style="text-align: center;">יציאה</h2>
+
+      <label for="dateRelease">תאריך שחרור</label>
+      <input type="date" id="dateRelease " name="dateRelease" required>
+
+      <label for="toolType">שע״מ</label>
+      <input type="text" id="toolType" name="toolType" placeholder="שעות מנועה" required>
+
+      <label for="toolType">שם בוחן</label>
+      <input type="text" id="toolType" name="toolType" placeholder="שם בוחן" required>
+    </div>
+
+    <!-- Issues Section -->
+    <div class="form-section">
+      <h2 style="text-align: center;">תקלות</h2>
+
+      <div id="issuesList" class="issues-list">
+        <div class="issue-row">
+          <input type="text" class="issue-description" placeholder="תיאור התקלה" required>
+          
+        </div>
+      </div>
+      <button type="button" onclick="addIssue()">הוסף תקלה</button>
+    </div>
+
+    <!-- Tester Information Section -->
+    <div class="form-section">
+      <label for="testerName">שם הבוחן</label>
+      <input type="text" id="testerName" name="testerName" placeholder="שם הבוחן" required>
+
+      <label for="signature">חתימה</label>
+      <input type="text" id="signature" name="signature" placeholder="חתימה" required>
+
+      <label for="notes">הערות</label>
+      <textarea id="notes" name="notes" rows="4" placeholder="הערות"></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="button" onclick="submitData()">שלח טופס</button>
+  </form>
+
+  <script>
+    // Add a new issue row
+    function addIssue() {
+      const issuesList = document.getElementById('issuesList');
+      const issueRow = document.createElement('div');
+      issueRow.className = 'issue-row';
+
+      issueRow.innerHTML = `
+        <input type="text" class="issue-description" placeholder="תיאור התקלה" required>
+
+      <h2 style="text-align: center;">יציאה</h2>
+
+      `;
+      issuesList.appendChild(issueRow);
+    }
+
+    // Submit form data
+    function submitData() {
+      const form = document.getElementById('dataForm');
+      const formData = new FormData(form);
+
+      // Process issue descriptions
+      const issues = [];
+      document.querySelectorAll('.issue-description').forEach(input => {
+        issues.push({ description: input.value });
+      });
+
+      const data = {
+        commandNumber: formData.get('commandNumber'),
+        toolType: formData.get('toolType'),
+        dateReceived: formData.get('dateReceived'),
+        unit: formData.get('unit'),
+        executionPlace: formData.get('executionPlace'),
+        issueDate: formData.get('issueDate'),
+        issues,
+        testerName: formData.get('testerName'),
+        signature: formData.get('signature'),
+        notes: formData.get('notes')
+      };
+
+      google.script.run
+        .withSuccessHandler(response => {
+          alert(response);
+          form.reset();
+        })
+        .withFailureHandler(error => {
+          alert('Error: ' + error.message);
+        })
+        .submitForm(data);
+    }
+  </script>
+</body>
+</html>
